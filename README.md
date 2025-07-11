@@ -2,6 +2,7 @@
 
 [![API](https://img.shields.io/website?url=https%3A%2F%2Fnetlify-github-status.netlify.app%2F.netlify%2Ffunctions%2Fhealth&label=API)](https://netlify-github-status.netlify.app/.netlify/functions/health)
 [![GitHub Bot](https://img.shields.io/badge/GitHub-Bot-green)](https://github.com/apps/netlify-github-status)
+[![Netlify Extension](https://img.shields.io/badge/Netlify-Extension-blue)](https://app.netlify.com/extensions/n0pwo0qr-netlify-github-status)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c9c7c4db-72bf-4226-ab92-432d82344958/deploy-status)](https://app.netlify.com/projects/netlify-github-status/deploys)
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Hanssen0/netlify-github-status)
@@ -35,7 +36,22 @@ While Netlify's built-in GitHub integration posts a basic "check" on your commit
     b. Creates a new **GitHub Deployment** (or finds an existing one for the same Netlify deploy).
     c. Creates a **deployment status** for that GitHub Deployment, linking to the live site and Netlify logs.
 
-## Quick Start: Using the Public Service
+## Setup
+
+To connect your Netlify site, you can either use the Netlify Extension for automatic setup or configure webhooks manually.
+
+### Using the Netlify Extension
+
+To avoid manual webhook configuration, you can install the **Netlify GitHub Status** extension.
+
+1.  Go to the **[Netlify GitHub Status Extension](https://app.netlify.com/extensions/n0pwo0qr-netlify-github-status)** page and enable the integration for your sites.
+2.  Ensure the **[GitHub App](https://github.com/apps/netlify-github-status)** is also installed with access to your repositories.
+
+### Manual Setup
+
+If you prefer to configure webhooks manually, you have two options:
+
+#### Using the Public Service
 
 You can use a publicly hosted instance of this function without needing to fork or deploy this repository yourself.
 
@@ -62,7 +78,7 @@ For each Netlify site you want to connect:
 
 That's it! Your next deployment will now automatically update your GitHub commit statuses and deployments.
 
-## Self-Hosting Guide
+#### Self-Hosting
 
 For maximum control and reliability, you can host the function on your own Netlify account.
 
