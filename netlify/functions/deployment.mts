@@ -148,7 +148,9 @@ async function innerHandler(reqId: string, event: HandlerEvent) {
         | "error",
       log_url: `https://app.netlify.com/sites/${deploy.name}/deploys/${deploy.id}`,
       environment_url:
-        (deploy.context === "production" ? deploy.url : undefined) ??
+        (deploy.context === "production"
+          ? deploy.url?.replace(/^http:\/\//g, "https://")
+          : undefined) ??
         deploy.deploy_ssl_url ??
         undefined,
       description: `Netlify deploy state: ${deploy.state}`,
