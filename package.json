@@ -1,15 +1,29 @@
 {
   "name": "netlify-github-status",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Netlify Function that automatically updates your GitHub repository with detailed status information about your Netlify deployments.",
+  "main": "netlify/functions/deployment.js",
   "type": "module",
+  "files": [
+    "netlify/functions"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.8.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hanssen0/netlify-github-status.git"
+  },
+  "keywords": [
+    "netlify",
+    "github",
+    "status",
+    "deployment",
+    "webhook",
+    "serverless",
+    "function"
+  ],
+  "author": "Hanssen0 <hanssen0@hanssen0.com>",
   "dependencies": {
     "@netlify/api": "^14.0.3",
     "@netlify/functions": "^4.1.10",
@@ -19,5 +33,10 @@
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.0.13"
-  }
+  },
+  "packageManager": "pnpm@10.8.1",
+  "bugs": {
+    "url": "https://github.com/Hanssen0/netlify-github-status/issues"
+  },
+  "homepage": "https://github.com/Hanssen0/netlify-github-status#readme"
 }
