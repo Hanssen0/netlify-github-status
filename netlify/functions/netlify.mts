@@ -2,6 +2,24 @@ import jwt from "jsonwebtoken";
 import type { HandlerEvent } from "@netlify/functions";
 import crypto from "crypto";
 
+/**
+ * A minimal type definition for the Netlify Deploy object,
+ * containing only the fields used in this function.
+ */
+export type NetlifyDeploy = {
+  id: string;
+  state?: string | null;
+  name?: string | null;
+  branch?: string | null;
+  commit_ref?: string | null;
+  commit_url?: string | null;
+  context?: string | null;
+  error_message?: string | null;
+  updated_at?: string | null;
+  url?: string | null;
+  deploy_ssl_url?: string | null;
+};
+
 export class Response {
   constructor(
     public readonly message: string = "",
@@ -28,7 +46,7 @@ export function validateSignature(
  * @param event The Netlify handler event.
  * @returns The deploy ID from the request body.
  */
-export function verifyAndParse(event: HandlerEvent): string {
+export function verifyAndParse(event: HandlerEvent): NetlifyDeploy {
   if (event.body == null) {
     throw new Response("Request body is empty.", 400);
   }
@@ -48,34 +66,20 @@ export function verifyAndParse(event: HandlerEvent): string {
     }
   }
 
-  const id = JSON.parse(event.body)?.id as string | null | undefined;
-  if (id == null) {
+  const deploy = JSON.parse(event.body) as NetlifyDeploy | null | undefined;
+  if (deploy?.id == null) {
     throw new Response("Failed to get deploy ID from request body.", 400);
   }
 
-  return id;
+  return secret == null ? { id: deploy.id } : deploy;
 }
 
-/**
- * A minimal type definition for the Netlify Deploy object,
- * containing only the fields used in this function.
- */
-export type NetlifyDeploy = {
-  id: string;
-  state?: string | null;
-  name?: string | null;
-  branch?: string | null;
-  commit_ref?: string | null;
-  commit_url?: string | null;
-  context?: string | null;
-  error_message?: string | null;
-  updated_at?: string | null;
-  url?: string | null;
-  deploy_ssl_url?: string | null;
-};
+export async function fetchNetlifyDeploy(data: NetlifyDeploy): Promise<NetlifyDeploy> {
+  if (data.state != null) {
+    return data;
+  }
 
-export async function fetchNetlifyDeploy(id: string): Promise<NetlifyDeploy> {
-  const deploy = await fetch(`https://api.netlify.com/api/v1/deploys/${id}`);
+  const deploy = await fetch(`https://api.netlify.com/api/v1/deploys/${data.id}`);
 
   if (!deploy.ok) {
     throw new Response(

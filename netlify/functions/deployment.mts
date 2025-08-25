@@ -9,9 +9,7 @@ import {
 import { randomUUID } from "crypto";
 
 async function innerHandler(reqId: string, event: HandlerEvent) {
-  const id = verifyAndParse(event);
-
-  const deploy = await fetchNetlifyDeploy(id);
+  const deploy = await fetchNetlifyDeploy(verifyAndParse(event));
   console.debug(`[${reqId}] Processing deploy ${JSON.stringify(deploy)}`);
 
   if (
